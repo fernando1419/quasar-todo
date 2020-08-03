@@ -19,6 +19,18 @@
       </q-toolbar>
     </q-header>
 
+    <q-footer>
+      <q-tabs>
+        <q-route-tab
+          v-for="link in essentialLinks"
+          :key="link.title"
+          :icon="link.icon"
+          :to="link.link"
+          :label="link.caption"
+        />
+      </q-tabs>
+    </q-footer>
+
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
@@ -49,13 +61,13 @@ import EssentialLink from 'components/EssentialLink.vue';
 const linksData = [
   {
     title: 'Todo',
-    caption: '',
+    caption: 'Todo',
     icon: 'list',
     link: '/'
   },
   {
     title: 'Settings',
-    caption: 'Settings Section',
+    caption: 'Settings',
     icon: 'settings',
     link: '/settings'
   }
