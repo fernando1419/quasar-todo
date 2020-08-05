@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <q-list bordered separator>
       <q-item
-        v-for="task in tasks"
+        v-for="task in getTasks"
         :key="task.id"
         v-on:click="task.completed = !task.completed"
         :class="!task.completed ? 'bg-orange-1' : 'bg-green-1'"
@@ -40,33 +40,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  data() {
-    return {
-      tasks: [
-        {
-          id: 1,
-          name: 'Go to the shop',
-          completed: false,
-          dueDate: '2020/08/05',
-          dueTime: '18:30'
-        },
-        {
-          id: 2,
-          name: 'Go to the park',
-          completed: false,
-          dueDate: '2020/08/06',
-          dueTime: '14:00'
-        },
-        {
-          id: 3,
-          name: 'Feed the cat',
-          completed: false,
-          dueDate: '2020/08/14',
-          dueTime: '10:00'
-        }
-      ]
-    };
+  computed: {
+    ...mapGetters('moduleTasks', ['getTasks'])
+    /*
+      // another way to do this, and change the getTasks by tasks in the v-for at line 5
+      tasks: function() {
+        return this.$store.getters['moduleTasks/getTasks']
+      }
+    */
   }
 };
 </script>
