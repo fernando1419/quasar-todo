@@ -2,8 +2,8 @@
   <q-page class="q-pa-md">
     <q-list bordered separator>
       <q-item
-        v-for="task in getTasks"
-        :key="task.id"
+        v-for="(task, key) in getTasks"
+        :key="key"
         v-on:click="task.completed = !task.completed"
         :class="!task.completed ? 'bg-orange-1' : 'bg-green-1'"
         clickable
