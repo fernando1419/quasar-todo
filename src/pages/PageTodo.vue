@@ -8,14 +8,35 @@
         :id="key"
       ></app-task>
     </q-list>
+
+    <div class="absolute-bottom text-right q-ma-lg">
+      <q-btn
+        @click="showAddTaskForm = true"
+        round
+        size="20px"
+        color="primary"
+        glossy
+        icon="add"
+      />
+    </div>
+
+    <q-dialog v-model="showAddTaskForm">
+      <app-add-task />
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import Task from 'components/Tasks/Task.vue';
+import AddTask from 'components/Tasks/Modals/AddTask.vue';
 
 export default {
+  data() {
+    return {
+      showAddTaskForm: true
+    };
+  },
   computed: {
     ...mapGetters('moduleTasks', ['getTasks'])
     /*
@@ -26,7 +47,8 @@ export default {
     */
   },
   components: {
-    appTask: Task
+    appTask: Task,
+    appAddTask: AddTask
   }
 };
 </script>
