@@ -72,6 +72,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -84,6 +86,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions('moduleTasks', ['addTaskAction']),
     submitForm() {
       // console.log('Submitting form..');
       this.$refs.name.validate(); // validates task name field.
@@ -92,7 +95,9 @@ export default {
       }
     },
     submitTask() {
-      console.log('submitting task..');
+      // console.log('submitting task..');
+      this.addTaskAction(this.taskToSubmit);
+      this.$emit('closeForm');
     }
   }
 };

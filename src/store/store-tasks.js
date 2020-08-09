@@ -1,5 +1,9 @@
 import Vue from 'vue'
 
+import {
+  uid
+} from 'quasar'
+
 const state = {
   allTasks: {
     ID1: {
@@ -32,6 +36,9 @@ const mutations = {
   deleteTaskMutation(state, id) {
     console.log('Deleted id:', id)
     Vue.delete(state.allTasks, id) // use Vue built in methods in order to make it reactive.
+  },
+  addTaskMutation(state, payload) {
+    Vue.set(state.allTasks, payload.id, payload.task)
   }
 };
 
@@ -47,6 +54,17 @@ const actions = {
     commit
   }, id) {
     commit('deleteTaskMutation', id)
+  },
+  addTaskAction({
+    commit
+  }, taskData) {
+    const taskId = uid()
+    const payload = {
+      id: taskId,
+      task: taskData
+    }
+    // console.log(payload)
+    commit('addTaskMutation', payload)
   }
 };
 

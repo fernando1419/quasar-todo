@@ -21,7 +21,7 @@
     </div>
 
     <q-dialog v-model="showAddTaskForm">
-      <app-add-task />
+      <app-add-task @closeForm="showAddTaskForm = false" />
     </q-dialog>
   </q-page>
 </template>
@@ -34,7 +34,7 @@ import AddTask from 'components/Tasks/Modals/AddTask.vue';
 export default {
   data() {
     return {
-      showAddTaskForm: true
+      showAddTaskForm: false
     };
   },
   computed: {
