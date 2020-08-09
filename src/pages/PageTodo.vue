@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <q-list bordered separator>
+    <q-list bordered separator v-if="Object.keys(getTasks).length">
       <app-task
         v-for="(task, key) in getTasks"
         :key="key"

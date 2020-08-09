@@ -14,12 +14,22 @@
             outlined
             v-model="taskToSubmit.name"
             label="Task name"
+            autofocus
             hint="Provide a task name"
             dense
             :rules="[val => (val && val.length > 0) || 'Field is required.']"
             ref="name"
             class="col"
-          />
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="taskToSubmit.name"
+                name="close"
+                @click="taskToSubmit.name = ''"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-input>
         </div>
 
         <div class="row q-mb-sm">
@@ -31,6 +41,12 @@
             hint="Provide a Due Date"
           >
             <template v-slot:append>
+              <q-icon
+                v-if="taskToSubmit.dueDate"
+                name="close"
+                @click="clearDueDate()"
+                class="cursor-pointer"
+              />
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy
                   ref="qDateProxy"
@@ -44,15 +60,22 @@
           </q-input>
         </div>
 
-        <div class="row q-mb-sm">
+        <div class="row q-mb-sm" v-if="taskToSubmit.dueDate">
           <q-input
             outlined
             v-model="taskToSubmit.dueTime"
             dense
             label="Due time"
             hint="Provide a Due Time"
+            class="col"
           >
             <template v-slot:append>
+              <q-icon
+                v-if="taskToSubmit.dueTime"
+                name="close"
+                @click="taskToSubmit.dueTime = ''"
+                class="cursor-pointer"
+              />
               <q-icon name="access_time" class="cursor-pointer">
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
                   <q-time v-model="taskToSubmit.dueTime" />
@@ -98,6 +121,10 @@ export default {
       // console.log('submitting task..');
       this.addTaskAction(this.taskToSubmit);
       this.$emit('closeForm');
+    },
+    clearDueDate: function() {
+      this.taskToSubmit.dueDate = '';
+      this.taskToSubmit.dueTime = '';
     }
   }
 };
