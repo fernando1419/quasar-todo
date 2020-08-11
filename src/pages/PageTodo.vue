@@ -1,8 +1,14 @@
 <template>
   <q-page class="q-pa-md">
-    <app-tasks-todo :tasksTodoProp="getTasksTodo" />
-    <hr />
-    <app-tasks-completed :tasksCompletedProp="getTasksCompleted" />
+    <app-tasks-todo
+      :tasksTodoProp="getTasksTodo"
+      v-if="Object.keys(getTasksTodo).length"
+    />
+
+    <app-tasks-completed
+      :tasksCompletedProp="getTasksCompleted"
+      v-if="Object.keys(getTasksCompleted).length"
+    />
 
     <div class="absolute-bottom text-right q-ma-lg">
       <q-btn
