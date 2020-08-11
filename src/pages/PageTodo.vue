@@ -1,16 +1,15 @@
 <template>
   <q-page class="q-pa-md">
-    <app-tasks-todo
-      :tasksTodoProp="getTasksTodo"
-      v-if="Object.keys(getTasksTodo).length"
-    />
+    <app-no-tasks v-if="!Object.keys(getTasksTodo).length" />
+
+    <app-tasks-todo :tasksTodoProp="getTasksTodo" v-else />
 
     <app-tasks-completed
       :tasksCompletedProp="getTasksCompleted"
       v-if="Object.keys(getTasksCompleted).length"
     />
 
-    <div class="absolute-bottom text-right q-ma-lg">
+    <div class="absolute-bottom text-center q-ma-lg">
       <q-btn
         @click="showAddTaskForm = true"
         round
@@ -31,6 +30,7 @@
 import { mapGetters } from 'vuex';
 import TasksTodo from 'components/Tasks/TasksTodo.vue';
 import TasksCompleted from 'components/Tasks/TasksCompleted.vue';
+import NoTasks from 'components/Tasks/NoTasks.vue';
 import AddTask from 'components/Tasks/Modals/AddTask.vue';
 
 export default {
@@ -48,10 +48,17 @@ export default {
       }
     */
   },
+  mounted() {
+    // listen to the global event using bus comunication with quasar.
+    this.$root.$on('showAddTaskForm', () => {
+      this.showAddTaskForm = true;
+    });
+  },
   components: {
     appAddTask: AddTask,
     appTasksTodo: TasksTodo,
-    appTasksCompleted: TasksCompleted
+    appTasksCompleted: TasksCompleted,
+    appNoTasks: NoTasks
   }
 };
 </script>
