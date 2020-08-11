@@ -70,8 +70,27 @@ const actions = {
 
 // get date from the state
 const getters = {
-  getTasks: state => {
-    return state.allTasks;
+  getTasksTodo: state => {
+    var tasks = {}
+    Object.keys(state.allTasks).forEach(function (key) {
+      const task = state.allTasks[key]
+      if (!task.completed) {
+        tasks[key] = task
+      }
+    });
+
+    return tasks;
+  },
+  getTasksCompleted: state => {
+    var tasks = {}
+    Object.keys(state.allTasks).forEach(function (key) {
+      const task = state.allTasks[key]
+      if (task.completed) {
+        tasks[key] = task
+      }
+    });
+
+    return tasks;
   }
 };
 

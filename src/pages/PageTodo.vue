@@ -1,13 +1,8 @@
 <template>
   <q-page class="q-pa-md">
-    <q-list bordered separator v-if="Object.keys(getTasks).length">
-      <app-task
-        v-for="(task, key) in getTasks"
-        :key="key"
-        :task="task"
-        :id="key"
-      ></app-task>
-    </q-list>
+    <app-tasks-todo :tasksTodoProp="getTasksTodo" />
+    <hr />
+    <app-tasks-completed :tasksCompletedProp="getTasksCompleted" />
 
     <div class="absolute-bottom text-right q-ma-lg">
       <q-btn
@@ -28,7 +23,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Task from 'components/Tasks/Task.vue';
+import TasksTodo from 'components/Tasks/TasksTodo.vue';
+import TasksCompleted from 'components/Tasks/TasksCompleted.vue';
 import AddTask from 'components/Tasks/Modals/AddTask.vue';
 
 export default {
@@ -38,7 +34,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('moduleTasks', ['getTasks'])
+    ...mapGetters('moduleTasks', ['getTasksTodo', 'getTasksCompleted'])
     /*
       // another way to do this (to use the tasks computed prop. change the "getTasks" to "tasks" in the v-for at line 5)
       tasks: function() {
@@ -47,8 +43,9 @@ export default {
     */
   },
   components: {
-    appTask: Task,
-    appAddTask: AddTask
+    appAddTask: AddTask,
+    appTasksTodo: TasksTodo,
+    appTasksCompleted: TasksCompleted
   }
 };
 </script>
